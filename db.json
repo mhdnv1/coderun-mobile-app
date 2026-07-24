@@ -1,0 +1,44 @@
+{
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Amina Karimova",
+      "role": "Product Designer",
+      "company": "CodeRun Studio",
+      "email": "amina@coderun.dev",
+      "phone": "+1 415 555 0184",
+      "city": "San Francisco",
+      "bio": "Designs thoughtful product flows, design systems, and clean digital calling cards for founders."
+    },
+    {
+      "id": "2",
+      "name": "Daler Rahmon",
+      "role": "Frontend Engineer",
+      "company": "Northstar Apps",
+      "email": "daler@northstar.dev",
+      "phone": "+1 646 555 0129",
+      "city": "New York",
+      "bio": "Builds React Native interfaces, API integrations, and fast mobile prototypes."
+    },
+    {
+      "id": "3",
+      "name": "Maya Chen",
+      "role": "Growth Marketer",
+      "company": "Signal Lane",
+      "email": "maya@signallane.co",
+      "phone": "+1 323 555 0155",
+      "city": "Los Angeles",
+      "bio": "Helps teams turn profile pages, referrals, and lightweight funnels into measurable growth."
+    },
+    {
+      "id": "4",
+      "name": "Otabek Saidov",
+      "role": "Mobile Developer",
+      "company": "Bright Route",
+      "email": "otabek@brightroute.app",
+      "phone": "+1 206 555 0173",
+      "city": "Seattle",
+      "bio": "Ships Expo apps with offline-friendly screens, typed APIs, and pragmatic architecture."
+    }
+  ]
+}
