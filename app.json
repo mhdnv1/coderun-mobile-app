@@ -1,5 +1,8 @@
 {
   "expo": {
+    "name": "CodeRun Mobile App",
+    "slug": "coderun-mobile-app",
+    "scheme": "coderun-mobile-app",
     "userInterfaceStyle": "automatic",
     "web": {
       "bundler": "metro"
