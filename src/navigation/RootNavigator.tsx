@@ -7,10 +7,7 @@ import { useAppSelector } from "../store/hooks";
 import { ContactDetailsScreen } from "../screens/ContactDetailsScreen";
 import { ContactsScreen } from "../screens/ContactsScreen";
 import { LoginScreen } from "../screens/LoginScreen";
-import type {
-  AuthStackParamList,
-  ProtectedStackParamList,
-} from "./types";
+import type { AuthStackParamList, ProtectedStackParamList } from "./types";
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const ProtectedStack = createNativeStackNavigator<ProtectedStackParamList>();
@@ -51,9 +48,7 @@ function ProtectedNavigator() {
 }
 
 export function RootNavigator() {
-  const isAuthenticated = useAppSelector(
-    (state) => state.auth.isAuthenticated,
-  );
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return (
     <NavigationContainer>

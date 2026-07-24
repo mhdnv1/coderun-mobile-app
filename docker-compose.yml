@@ -1,0 +1,19 @@
+services:
+  api:
+    image: node:20-alpine
+    working_dir: /app
+    command: npx json-server db.json --host 0.0.0.0 --port 3001
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/app
+
+  web:
+    build:
+      context: .
+      args:
+        BUILD_ENV: local
+    ports:
+      - "8080:80"
+    depends_on:
+      - api

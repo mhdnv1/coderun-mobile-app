@@ -1,4 +1,12 @@
 {
+  "users": [
+    {
+      "id": "1",
+      "email": "demo@coderun.dev",
+      "password": "password123",
+      "name": "Demo User"
+    }
+  ],
   "contacts": [
     {
       "id": "1",

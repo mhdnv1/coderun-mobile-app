@@ -5,5 +5,4 @@ dist
 .github
 npm-debug.log
 Dockerfile
-docker-compose.yml
 .DS_Store

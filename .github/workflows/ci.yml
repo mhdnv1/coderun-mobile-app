@@ -28,6 +28,15 @@ jobs:
       - name: Check Expo dependencies
         run: npm run check:expo
 
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Test
+        run: npm run test
+
       - name: Typecheck
         run: npm run typecheck
 

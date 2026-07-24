@@ -1,11 +1,16 @@
+import { useMemo, useState } from "react";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { FlatList, Pressable, Text, View } from "react-native";
+import { FlatList, Pressable, Text, TextInput, View } from "react-native";
 
+import { EmptyState } from "../components/EmptyState";
+import { ErrorState } from "../components/ErrorState";
+import { LoadingState } from "../components/LoadingState";
 import { logout } from "../features/auth/authSlice";
 import { useGetContactsQuery } from "../services/contactsApi";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import type { Contact } from "../types/contact";
 import type { ProtectedStackParamList } from "../navigation/types";
+import { filterContacts } from "../utils/search";
 import { truncateText } from "../utils/text";
 
 type Props = NativeStackScreenProps<ProtectedStackParamList, "Contacts">;
@@ -17,6 +22,12 @@ export function ContactsScreen({ navigation }: Props) {
   const dispatch = useAppDispatch();
   const userEmail = useAppSelector((state) => state.auth.user?.email);
   const { data, error, isFetching, isLoading, refetch } = useGetContactsQuery();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredContacts = useMemo(
+    () => filterContacts(data ?? [], searchQuery),
+    [data, searchQuery],
+  );
 
   const renderContact = ({ item }: { item: Contact }) => (
     <Pressable
@@ -59,24 +70,39 @@ export function ContactsScreen({ navigation }: Props) {
         </Pressable>
       </View>
 
+      <View className="mb-4 flex-row gap-3">
+        <TextInput
+          autoCapitalize="none"
+          onChangeText={setSearchQuery}
+          placeholder="Search by name, role, company or city"
+          placeholderTextColor="#9CA3AF"
+          value={searchQuery}
+          className="min-w-0 flex-1 rounded-[8px] border border-[#D1D5DB] bg-white px-4 py-3 text-[#111827]"
+        />
+        <Pressable
+          accessibilityRole="button"
+          onPress={refetch}
+          className="rounded-[8px] bg-[#111827] px-4 py-3"
+        >
+          <Text className="font-bold text-white">Refresh</Text>
+        </Pressable>
+      </View>
+
       {isLoading ? (
-        <Text className="mt-8 text-center text-[#4B5563]">Loading...</Text>
+        <LoadingState message="Loading contacts..." />
       ) : error ? (
-        <View className="mt-8 items-center gap-4">
-          <Text className="text-center text-[#B91C1C]">
-            Could not load contacts. Start json-server and try again.
-          </Text>
-          <Pressable
-            accessibilityRole="button"
-            onPress={refetch}
-            className="rounded-[8px] bg-[#111827] px-5 py-3"
-          >
-            <Text className="font-bold text-white">Retry</Text>
-          </Pressable>
-        </View>
+        <ErrorState
+          message="Could not load contacts. Start json-server and try again."
+          onRetry={refetch}
+        />
+      ) : filteredContacts.length === 0 ? (
+        <EmptyState
+          title="No contacts found"
+          description="Try another name, role, company or city."
+        />
       ) : (
         <FlatList
-          data={data}
+          data={filteredContacts}
           keyExtractor={(item) => item.id}
           onRefresh={refetch}
           refreshing={isFetching}

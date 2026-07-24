@@ -1,6 +1,8 @@
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { Pressable, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
+import { ErrorState } from "../components/ErrorState";
+import { LoadingState } from "../components/LoadingState";
 import { useGetContactByIdQuery } from "../services/contactsApi";
 import type { ProtectedStackParamList } from "../navigation/types";
 
@@ -12,25 +14,19 @@ export function ContactDetailsScreen({ route }: Props) {
 
   if (isLoading) {
     return (
-      <View className="flex-1 items-center justify-center bg-[#F7F8FA] px-4">
-        <Text className="text-[#4B5563]">Loading details...</Text>
+      <View className="flex-1 bg-[#F7F8FA] px-4 pt-4">
+        <LoadingState message="Loading details..." />
       </View>
     );
   }
 
   if (error || !data) {
     return (
-      <View className="flex-1 items-center justify-center gap-4 bg-[#F7F8FA] px-4">
-        <Text className="text-center text-[#B91C1C]">
-          Could not load contact details.
-        </Text>
-        <Pressable
-          accessibilityRole="button"
-          onPress={refetch}
-          className="rounded-[8px] bg-[#111827] px-5 py-3"
-        >
-          <Text className="font-bold text-white">Retry</Text>
-        </Pressable>
+      <View className="flex-1 bg-[#F7F8FA] px-4 pt-4">
+        <ErrorState
+          message="Could not load contact details."
+          onRetry={refetch}
+        />
       </View>
     );
   }
