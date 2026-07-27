@@ -33,8 +33,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
         const storedSession = await AsyncStorage.getItem(AUTH_STORAGE_KEY);
 
         if (storedSession) {
-          setSessionState(JSON.parse(storedSession) as AuthSession);
+          setSessionState(parseStoredSession(storedSession));
         }
+      } catch {
+        await AsyncStorage.removeItem(AUTH_STORAGE_KEY);
       } finally {
         setIsHydrating(false);
       }
@@ -75,4 +77,18 @@ export function useAuth() {
   }
 
   return context;
+}
+
+function parseStoredSession(storedSession: string) {
+  const parsedSession = JSON.parse(storedSession) as Partial<AuthSession>;
+
+  if (
+    typeof parsedSession.token !== "string" ||
+    typeof parsedSession.user?.email !== "string" ||
+    typeof parsedSession.user.name !== "string"
+  ) {
+    throw new Error("Invalid stored auth session");
+  }
+
+  return parsedSession as AuthSession;
 }

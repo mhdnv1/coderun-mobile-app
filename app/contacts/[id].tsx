@@ -16,5 +16,9 @@ export default function ContactDetailsRoute() {
     return <Redirect href="/" />;
   }
 
-  return <ContactDetailsScreen contactId={id} />;
+  if (!id) {
+    return <Redirect href="/contacts" />;
+  }
+
+  return <ContactDetailsScreen contactId={String(id)} />;
 }
