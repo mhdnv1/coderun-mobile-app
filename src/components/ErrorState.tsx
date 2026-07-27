@@ -7,15 +7,15 @@ type ErrorStateProps = {
 
 export function ErrorState({ message, onRetry }: ErrorStateProps) {
   return (
-    <View className="mt-8 items-center gap-4 rounded-[8px] border border-[#FECACA] bg-[#FEF2F2] p-5">
-      <Text className="text-center text-[#B91C1C]">{message}</Text>
+    <View className="mt-8 items-center gap-4 rounded-[8px] border border-danger-border bg-danger-soft p-5">
+      <Text className="text-center text-danger">{message}</Text>
       {onRetry ? (
         <Pressable
           accessibilityRole="button"
           onPress={onRetry}
-          className="rounded-[8px] bg-[#111827] px-5 py-3"
+          className="rounded-[8px] bg-primary-text px-5 py-3"
         >
-          <Text className="font-bold text-white">Retry</Text>
+          <Text className="font-bold text-surface">Retry</Text>
         </Pressable>
       ) : null}
     </View>

@@ -34,6 +34,7 @@ module.exports = [
       globals: {
         console: "readonly",
         process: "readonly",
+        setTimeout: "readonly",
         require: "readonly",
         module: "readonly",
       },

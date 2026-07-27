@@ -1,10 +1,10 @@
 {
   "name": "myapp",
   "version": "1.0.0",
-  "main": "index.ts",
+  "main": "expo-router/entry",
   "scripts": {
     "start": "npm run start:local",
-    "start:local": "concurrently -n API,EXPO -c cyan,magenta \"npm run server\" \"npm run dev:local\"",
+    "start:local": "npm run dev:local",
     "start:release": "npm run dev:release",
     "dev": "npm run dev:local",
     "dev:local": "dotenv -e .env.local -- expo start",
@@ -18,7 +18,6 @@
     "web": "npm run web:local",
     "web:local": "dotenv -e .env.local -- expo start --web",
     "web:release": "dotenv -e .env.release -- expo start --web",
-    "server": "json-server db.json --host localhost --port 3001",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -32,12 +31,11 @@
   "dependencies": {
     "@expo/metro-runtime": "~5.0.5",
     "@react-native-async-storage/async-storage": "^2.1.2",
-    "@react-navigation/native": "^7.3.13",
-    "@react-navigation/native-stack": "^7.18.5",
-    "@reduxjs/toolkit": "^2.12.0",
+    "@tanstack/react-form": "^1.33.2",
+    "@tanstack/react-query": "^5.101.4",
     "expo": "~53.0.27",
+    "expo-router": "~5.1.11",
     "expo-status-bar": "~2.2.3",
-    "json-server": "^1.0.0-beta.15",
     "nativewind": "^4.1.23",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "react": "19.0.0",
@@ -48,8 +46,6 @@
     "react-native-screens": "~4.11.1",
     "react-native-svg": "15.11.2",
     "react-native-web": "^0.20.0",
-    "react-redux": "^9.3.0",
-    "redux-persist": "^6.0.0",
     "tailwindcss": "^3.4.17"
   },
   "devDependencies": {
@@ -58,7 +54,6 @@
     "@typescript-eslint/eslint-plugin": "^8.65.0",
     "@typescript-eslint/parser": "^8.65.0",
     "@vitest/coverage-v8": "^4.1.10",
-    "concurrently": "^10.0.3",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.5",
     "eslint-config-prettier": "^10.1.8",

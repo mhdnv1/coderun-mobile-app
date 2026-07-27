@@ -6,20 +6,43 @@ export type LoginErrors = {
 const MIN_PASSWORD_LENGTH = 6;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export function validateLoginForm(email: string, password: string) {
-  const nextErrors: LoginErrors = {};
+export function validateEmail(email: string) {
   const trimmedEmail = email.trim();
 
   if (!trimmedEmail) {
-    nextErrors.email = "Email is required";
-  } else if (!EMAIL_PATTERN.test(trimmedEmail)) {
-    nextErrors.email = "Enter a valid email";
+    return "Email is required";
   }
 
+  if (!EMAIL_PATTERN.test(trimmedEmail)) {
+    return "Enter a valid email";
+  }
+
+  return undefined;
+}
+
+export function validatePassword(password: string) {
   if (!password) {
-    nextErrors.password = "Password is required";
-  } else if (password.length < MIN_PASSWORD_LENGTH) {
-    nextErrors.password = `Password must be at least ${MIN_PASSWORD_LENGTH} characters`;
+    return "Password is required";
+  }
+
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    return `Password must be at least ${MIN_PASSWORD_LENGTH} characters`;
+  }
+
+  return undefined;
+}
+
+export function validateLoginForm(email: string, password: string) {
+  const nextErrors: LoginErrors = {};
+  const emailError = validateEmail(email);
+  const passwordError = validatePassword(password);
+
+  if (emailError) {
+    nextErrors.email = emailError;
+  }
+
+  if (passwordError) {
+    nextErrors.password = passwordError;
   }
 
   return nextErrors;
